@@ -47,7 +47,8 @@ app.post('/upload', upload.single('video'), (req, res) => {
         //si on commente cette ligne, le fichier audio reste dans le dossier uploads 
         //fs.unlinkSync(filePath);
        //fs.unlinkSync(audioPath);
-      
+
+       //manque la partie api 
       });
     })
     .on('error', (err: any) => {
