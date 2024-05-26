@@ -48,7 +48,6 @@ app.post('/upload', upload.single('video'), (req, res) => {
         //fs.unlinkSync(filePath);
        //fs.unlinkSync(audioPath);
 
-       //manque la partie api 
       });
     })
     .on('error', (err: any) => {
