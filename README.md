@@ -46,7 +46,7 @@ ffmpeg
 
 ### Installation de ffmpeg
 
-Dans ce , ffmpeg est utilisé pour manipuler les fichiers multimédias, notamment pour extraire l'audio des fichiers vidéo que les utilisateurs téléchargent. Voici les étapes principales où ffmpeg intervient :
+Dans ce pojet , ffmpeg est utilisé pour manipuler les fichiers multimédias, notamment pour extraire l'audio des fichiers vidéo que les utilisateurs téléchargent. Voici les étapes principales où ffmpeg intervient :
 
 Téléchargement de la vidéo : L'utilisateur télécharge une vidéo via l'interface frontend.
 Envoi au backend : La vidéo est envoyée au serveur backend via une requête HTTP POST.
