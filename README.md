@@ -41,7 +41,7 @@
 Prérequis
 
 Node.js (version 14 ou supérieure)
-npm (version 6 ou supérieure)
+npm (version 6 ou supérieure),
 ffmpeg
 
 ### Installation de ffmpeg

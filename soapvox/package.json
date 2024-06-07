@@ -9,12 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/wavesurfer.js": "^6.0.12",
+    "lodash.times": "^4.3.2",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-marquee-slider": "^1.1.5",
     "wavesurfer.js": "^7.7.15"
   },
   "devDependencies": {
+    "@types/lodash.times": "^4.3.9",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
