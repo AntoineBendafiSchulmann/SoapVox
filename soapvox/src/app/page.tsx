@@ -2,9 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js'
+import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js';
 import Marquee from 'react-marquee-slider';
-import times from 'lodash.times';
 
 type TextSegment = {
   start: number;
@@ -24,7 +23,8 @@ export default function Home() {
   const [textSegments, setTextSegments] = useState<TextSegment[]>([
     { start: 0, end: 1, text: 'Hello', character: 'World' },
   ]);
-  
+  const [currentText, setCurrentText] = useState<string>('');
+
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const selectedFile = event.target.files[0];
@@ -84,7 +84,7 @@ export default function Home() {
             end: segment.end,
             color: 'rgba(0, 123, 255, 0.1)',
             drag: false,
-            resize: false,            
+            resize: false,
           });
         });
       });
@@ -98,9 +98,9 @@ export default function Home() {
           );
 
           if (activeSegment) {
-            document.getElementById('scrolling-text')!.textContent = activeSegment.text;
+            setCurrentText(activeSegment.text);
           } else {
-            document.getElementById('scrolling-text')!.textContent = '';
+            setCurrentText('');
           }
         }
       });
@@ -197,7 +197,17 @@ export default function Home() {
       )}
       {audioUrl && (
         <div className="scrolling-text-container">
-          <div id="scrolling-text" className="scrolling-text"></div>
+          <Marquee
+            velocity={0.1}
+            direction="rtl"
+            resetAfterTries={200}
+            onInit={() => {}}
+            onFinish={() => {}}
+          >
+            {textSegments.map((segment, index) => (
+              <div key={index} className="scrolling-text">{segment.text}</div>
+            ))}
+          </Marquee>
         </div>
       )}
       <div className="text-segment-editor">
@@ -213,23 +223,6 @@ export default function Home() {
         <button onClick={addTextSegment}>Ajouter un segment</button>
         <button onClick={saveSegments}>Sauvegarder les segments</button>
       </div>
-
-      {audioUrl && (
-        <div className="scrolling-text-container">
-            <Marquee 
-              velocity={0.1}
-              direction="rtl"
-              resetAfterTries={200}
-              scatterRandomly
-              onInit={() => {}}
-              onFinish={() => {}}
-            >
-              {times(10, Number).map(i => (
-                <div key={i} className="marquee-text">{textSegments.map(segment => segment.text).join(' ')}</div>
-              ))}
-            </Marquee>
-          </div>
-        )}
-      </div>
+    </div>
   );
 }

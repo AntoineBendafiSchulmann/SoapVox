@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/wavesurfer.js": "^6.0.12",
+    "lodash": "^4.17.21",
     "lodash.times": "^4.3.2",
     "next": "14.2.3",
     "react": "^18",
