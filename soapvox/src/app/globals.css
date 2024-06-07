@@ -13,6 +13,7 @@
 .waveform-container {
   width: 80%;
   height: 100px;
+  position: relative;
 }
 
 input[type="file"] {
@@ -51,6 +52,15 @@ button:disabled {
   white-space: nowrap;
   position: relative;
   text-align: center; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 .scrolling-text {
@@ -81,4 +91,10 @@ button:disabled {
 
 .text-segment button {
   padding: 5px 10px;
+}
+
+.marquee-text {
+  white-space: nowrap;
+  font-size: 20px;
+  color: #333;
 }
