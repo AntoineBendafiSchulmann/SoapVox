@@ -22,6 +22,10 @@ export const updateUser = async (req: Request, res: Response) => {
   const userId = req.params.id;
   const { name, email } = req.body;
 
+  if (!name || !email) {
+    return res.status(400).send('Name and email are required');
+  }
+
   try {
     const [result] = await db.query<ResultSetHeader>('UPDATE users SET name = ?, email = ? WHERE id = ?', [name, email, userId]);
     if (result.affectedRows > 0) {

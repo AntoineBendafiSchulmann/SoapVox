@@ -42,7 +42,7 @@ export default function Home() {
     formData.append('video', selectedFile);
 
     try {
-      const response = await fetch('http://localhost:3001/upload', {
+      const response = await fetch('http://localhost:3001/api/uploads/video', {
         method: 'POST',
         body: formData,
       });
@@ -141,7 +141,7 @@ export default function Home() {
 
   const saveSegments = async () => {
     try {
-      const response = await fetch('http://localhost:3001/segments', {
+      const response = await fetch('http://localhost:3001/api/segments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ export default function Home() {
 
   const loadSegments = async () => {
     try {
-      const response = await fetch('http://localhost:3001/segments');
+      const response = await fetch('http://localhost:3001/api/segments');
       if (response.ok) {
         const data = await response.json();
         setTextSegments(data);

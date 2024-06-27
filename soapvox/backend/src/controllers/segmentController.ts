@@ -12,7 +12,7 @@ export const saveSegments = async (req: Request, res: Response) => {
   try {
     await db.query('DELETE FROM segments');
     const promises = segments.map(segment =>
-      db.query<ResultSetHeader>('INSERT INTO segments (start, end, text, character) VALUES (?, ?, ?, ?)', [
+      db.query<ResultSetHeader>('INSERT INTO segments (start, end, text, character_name) VALUES (?, ?, ?, ?)', [
         segment.start, segment.end, segment.text, segment.character,
       ])
     );
