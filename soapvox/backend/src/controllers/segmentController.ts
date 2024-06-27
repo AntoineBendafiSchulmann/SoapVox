@@ -10,10 +10,10 @@ export const saveSegments = async (req: Request, res: Response) => {
   }
 
   try {
-    await db.query('DELETE FROM segments');
+    await db.query<ResultSetHeader>('DELETE FROM segments');
     const promises = segments.map(segment =>
       db.query<ResultSetHeader>('INSERT INTO segments (start, end, text, character_name) VALUES (?, ?, ?, ?)', [
-        segment.start, segment.end, segment.text, segment.character,
+        segment.start, segment.end, segment.text, segment.character_name,
       ])
     );
 
@@ -42,5 +42,21 @@ export const deleteSegments = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error deleting segments:', error);
     res.status(500).send('Error deleting segments');
+  }
+};
+
+export const deleteSegment = async (req: Request, res: Response) => {
+  const segmentId = req.params.id;
+
+  try {
+    const [result] = await db.query<ResultSetHeader>('DELETE FROM segments WHERE id = ?', [segmentId]);
+    if (result.affectedRows > 0) {
+      res.send('Segment deleted successfully');
+    } else {
+      res.status(404).send('Segment not found');
+    }
+  } catch (error) {
+    console.error('Error deleting segment:', error);
+    res.status(500).send('Error deleting segment');
   }
 };

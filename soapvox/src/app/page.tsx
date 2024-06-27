@@ -6,10 +6,11 @@ import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js';
 import Marquee from 'react-marquee-slider';
 
 type TextSegment = {
+  id?: number;
   start: number;
   end: number;
   text: string;
-  character: string;
+  character_name: string;
 };
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
   const waveSurfer = useRef<any>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [textSegments, setTextSegments] = useState<TextSegment[]>([
-    { start: 0, end: 1, text: 'Hello', character: 'World' },
+    { start: 0, end: 1, text: 'Hello', character_name: 'Alice' },
   ]);
   const [currentText, setCurrentText] = useState<string>('');
 
@@ -124,7 +125,7 @@ export default function Home() {
   }, [audioUrl, textSegments]);
 
   const addTextSegment = () => {
-    const newSegment: TextSegment = { start: 0, end: 1, text: "Nouveau texte", character: "Personnage" };
+    const newSegment: TextSegment = { start: 0, end: 1, text: "Nouveau texte", character_name: "Personnage" };
     setTextSegments([...textSegments, newSegment]);
   };
 
@@ -134,7 +135,21 @@ export default function Home() {
     setTextSegments(updatedSegments);
   };
 
-  const deleteTextSegment = (index: number) => {
+  const deleteTextSegment = async (index: number) => {
+    const segment = textSegments[index];
+    if (segment.id) {
+      try {
+        const response = await fetch(`http://localhost:3001/api/segments/${segment.id}`, {
+          method: 'DELETE',
+        });
+        if (!response.ok) {
+          throw new Error('Failed to delete segment');
+        }
+      } catch (error) {
+        console.error('Error deleting segment:', error);
+        return;
+      }
+    }
     const updatedSegments = textSegments.filter((_, i) => i !== index);
     setTextSegments(updatedSegments);
   };
@@ -214,7 +229,7 @@ export default function Home() {
         {textSegments.map((segment, index) => (
           <div key={index} className="text-segment">
             <input type="text" value={segment.text} onChange={(e) => updateTextSegment(index, 'text', e.target.value)} />
-            <input type="text" value={segment.character} onChange={(e) => updateTextSegment(index, 'character', e.target.value)} />
+            <input type="text" value={segment.character_name} onChange={(e) => updateTextSegment(index, 'character_name', e.target.value)} />
             <input type="number" value={segment.start} onChange={(e) => updateTextSegment(index, 'start', parseFloat(e.target.value))} />
             <input type="number" value={segment.end} onChange={(e) => updateTextSegment(index, 'end', parseFloat(e.target.value))} />
             <button onClick={() => deleteTextSegment(index)}>Supprimer</button>
