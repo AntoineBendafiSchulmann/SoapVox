@@ -6,7 +6,7 @@ export const getUser = async (req: Request, res: Response) => {
   const userId = req.params.id;
 
   try {
-    const [rows] = await db.query<RowDataPacket[]>('SELECT * FROM users WHERE id = ?', [userId]);
+    const [rows] = await db.query<RowDataPacket[]>('SELECT * FROM users WHERE user_id = ?', [userId]);
     if (rows.length > 0) {
       res.json(rows[0]);
     } else {
@@ -27,7 +27,7 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 
   try {
-    const [result] = await db.query<ResultSetHeader>('UPDATE users SET name = ?, email = ? WHERE id = ?', [name, email, userId]);
+    const [result] = await db.query<ResultSetHeader>('UPDATE users SET name = ?, email = ? WHERE user_id = ?', [name, email, userId]);
     if (result.affectedRows > 0) {
       res.send('User updated successfully');
     } else {
@@ -43,7 +43,7 @@ export const deleteUser = async (req: Request, res: Response) => {
   const userId = req.params.id;
 
   try {
-    const [result] = await db.query<ResultSetHeader>('DELETE FROM users WHERE id = ?', [userId]);
+    const [result] = await db.query<ResultSetHeader>('DELETE FROM users WHERE user_id = ?', [userId]);
     if (result.affectedRows > 0) {
       res.send('User deleted successfully');
     } else {

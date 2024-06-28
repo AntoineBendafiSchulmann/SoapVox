@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import {
-  searchProfiles,
-  getProfile,
   createProfile,
+  getProfile,
   updateProfile,
-  deleteProfile
+  deleteProfile,
+  searchProfiles
 } from '../controllers/profileController';
 
 const router = Router();
 
-router.get('/search', searchProfiles);
-router.get('/:id', getProfile);
 router.post('/', createProfile);
+router.get('/:id', getProfile);
 router.put('/:id', updateProfile);
 router.delete('/:id', deleteProfile);
+router.get('/search', searchProfiles);
 
 export default router;

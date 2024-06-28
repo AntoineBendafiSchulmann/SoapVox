@@ -44,19 +44,19 @@ export const getProfile = async (req: Request, res: Response) => {
 
 
 export const createProfile = async (req: Request, res: Response) => {
-  const { user_id, bio, tags, demo_tapes } = req.body;
-
-  try {
-    const [result] = await db.query<ResultSetHeader>(
-      'INSERT INTO profiles (user_id, bio, tags, demo_tapes) VALUES (?, ?, ?, ?)',
-      [user_id, bio, tags, demo_tapes]
-    );
-    res.status(201).send({ id: result.insertId });
-  } catch (error) {
-    console.error('Error creating profile:', error);
-    res.status(500).send('Error creating profile');
-  }
-};
+    const { user_id, bio, tags, demo_tapes } = req.body;
+  
+    try {
+      const [result] = await db.query<ResultSetHeader>(
+        'INSERT INTO profiles (user_id, bio, tags, demo_tapes) VALUES (?, ?, ?, ?)',
+        [user_id, bio, tags, demo_tapes]
+      );
+      res.status(201).json({ id: result.insertId });
+    } catch (error) {
+      console.error('Error creating profile:', error);
+      res.status(500).send('Error creating profile');
+    }
+  };  
 
 
 export const updateProfile = async (req: Request, res: Response) => {
@@ -95,4 +95,3 @@ export const deleteProfile = async (req: Request, res: Response) => {
     res.status(500).send('Error deleting profile');
   }
 };
-
