@@ -5,7 +5,7 @@ USE soapvox;
 -- Désactivation de la vérification des contraintes de clé étrangère
 SET FOREIGN_KEY_CHECKS = 0;
 
--- Suppression des tables existantes, pour moi , c'est juste moi relou avec 
+-- Suppression des tables existantes, pour moi , c'est juste moins relou avec 
 DROP TABLE IF EXISTS profile_segments;
 DROP TABLE IF EXISTS demo_tapes;
 DROP TABLE IF EXISTS profiles;

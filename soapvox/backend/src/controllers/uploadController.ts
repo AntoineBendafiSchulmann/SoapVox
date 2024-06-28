@@ -3,7 +3,7 @@ import ffmpeg from 'fluent-ffmpeg';
 import path from 'path';
 import fs from 'fs';
 import { db } from '../db';
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 export const uploadVideo = (req: Request, res: Response) => {
   if (!req.file) {
@@ -23,7 +23,7 @@ export const uploadVideo = (req: Request, res: Response) => {
       try {
         const [result] = await db.query<ResultSetHeader>(
           'INSERT INTO uploads (filename, file_path) VALUES (?, ?)', 
-          [req.file?.filename, audioPath]//ajouter une vérification de type afin de garantir que req.file est défini avant de l'utiliser
+          [req.file?.filename, audioPath] 
         );
         res.status(201).json({ upload_id: result.insertId });
       } catch (error) {
@@ -47,4 +47,24 @@ export const listVideos = (req: Request, res: Response) => {
     const videoFiles = files.filter(file => file.endsWith('.mp3'));
     res.json(videoFiles);
   });
+};
+
+export const getAudio = async (req: Request, res: Response) => {
+  const uploadId = req.params.id;
+  try {
+    const [rows] = await db.query<RowDataPacket[]>('SELECT file_path FROM uploads WHERE upload_id = ?', [uploadId]);
+    if (rows.length > 0) {
+      const audioPath = rows[0].file_path;
+      if (fs.existsSync(audioPath)) {
+        res.sendFile(path.resolve(audioPath));
+      } else {
+        res.status(404).send('Audio file not found');
+      }
+    } else {
+      res.status(404).send('Upload not found');
+    }
+  } catch (error) {
+    console.error('Error fetching audio file:', error);
+    res.status(500).send('Error fetching audio file');
+  }
 };
