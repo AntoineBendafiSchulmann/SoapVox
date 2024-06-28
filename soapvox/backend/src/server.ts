@@ -6,6 +6,7 @@ import userRoutes from './routes/userRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import segmentRoutes from './routes/segmentRoutes';
 import profileRoutes from './routes/profileRoutes';
+import rythmoBandRoutes from './routes/rythmoBandRoutes';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/segments', segmentRoutes);
 app.use('/api/profiles', profileRoutes);
+app.use('/api/rythmo-bands', rythmoBandRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
