@@ -9,6 +9,10 @@ export const saveSegments = async (req: Request, res: Response) => {
     return res.status(400).send('Segments should be an array');
   }
 
+  if (!upload_id) {
+    return res.status(400).send('Upload ID is required');
+  }
+
   try {
     const segmentPromises = segments.map(segment =>
       db.query<ResultSetHeader>('INSERT INTO segments (start, end, text, character_name) VALUES (?, ?, ?, ?)', [

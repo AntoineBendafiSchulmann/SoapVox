@@ -25,6 +25,7 @@ export default function Home() {
     { start: 0, end: 1, text: 'Hello', character_name: 'Alice' },
   ]);
   const [currentText, setCurrentText] = useState<string>('');
+  const [uploadId, setUploadId] = useState<number | null>(null);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -49,8 +50,9 @@ export default function Home() {
       });
 
       if (response.ok) {
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
+        const data = await response.json();
+        setUploadId(data.upload_id); // Stocke l'upload_id retourné
+        const url = `http://localhost:3001/api/uploads/audio/${data.upload_id}`;
         setAudioUrl(url);
       } else {
         console.error('Error uploading file');
@@ -155,13 +157,18 @@ export default function Home() {
   };
 
   const saveSegments = async () => {
+    if (!uploadId) {
+      console.error('Upload ID is not set');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3001/api/segments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ segments: textSegments }),
+        body: JSON.stringify({ segments: textSegments, upload_id: uploadId }),
       });
 
       if (!response.ok) {
