@@ -1,0 +1,34 @@
+.date-picker {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+  }
+  
+  .date-picker:focus {
+    border-color: #80bdff;
+    outline: none;
+  }
+  
+  .date-picker.small {
+    font-size: 12px;
+    padding: 5px;
+  }
+  
+  .date-picker.medium {
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  .date-picker.large {
+    font-size: 16px;
+    padding: 15px;
+  }
+  
+  .date-picker:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+  }
+  

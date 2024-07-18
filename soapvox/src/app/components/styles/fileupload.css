@@ -1,0 +1,36 @@
+.file-upload {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+  
+  .file-upload-label {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    color: #007bff;
+    transition: color 0.3s ease;
+  }
+  
+  .file-upload input {
+    margin-top: 5px;
+    cursor: pointer;
+  }
+  
+  .file-upload.small {
+    font-size: 12px;
+  }
+  
+  .file-upload.medium {
+    font-size: 14px;
+  }
+  
+  .file-upload.large {
+    font-size: 16px;
+  }
+  
+  .file-upload input:disabled + .file-upload-label {
+    color: #e9ecef;
+    cursor: not-allowed;
+  }
+  

@@ -1,0 +1,30 @@
+.link {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  .link.small {
+    font-size: 12px;
+  }
+  
+  .link.medium {
+    font-size: 14px;
+  }
+  
+  .link.large {
+    font-size: 16px;
+  }
+  
+  .link.disabled {
+    color: #6c757d;
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+  
