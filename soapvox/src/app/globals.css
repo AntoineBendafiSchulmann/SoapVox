@@ -1,0 +1,47 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.custom-file-upload {
+  display: block;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.video-container {
+  margin: 20px 0;
+}
+
+.waveform-container {
+  margin: 20px 0;
+}
+
+.scrolling-text-container {
+  margin: 20px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.text-segment-editor {
+  margin: 20px 0;
+}
+
+.text-segment {
+  display: flex;
+  margin: 5px 0;
+}
+
+.text-segment input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.text-segment button {
+  padding: 5px 10px;
+}
